@@ -1,8 +1,7 @@
 {
   "name": "vue-spa-template",
   "version": "1.0.0",
-  "description": "A vue-spa based scaffolding.",
-  "main": "index.js",
+  "description": "A vue-CSR based scaffolding.",
   "scripts": {
     "build:prod": "cross-env NODE_ENV=production webpack --config build-config/webpack.config.prod.js --progress --hide-modules",
     "clean": "rimraf public",

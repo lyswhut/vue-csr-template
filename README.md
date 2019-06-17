@@ -1,6 +1,6 @@
-# vue-spa-template
+# vue-csr-template
 
-A vue-spa based scaffolding.
+A vue-CSR based scaffolding.
 
 Scaffolding mainly integrates the following packages:
 
@@ -15,3 +15,20 @@ Scaffolding mainly integrates the following packages:
 * less
 * stylus
 * pug
+
+## How to use
+
+```bash
+# dev mode
+npm run dev
+
+# production build
+npm run build
+
+# eslint check
+npm run lint
+
+# eslint fix
+npm run lint-fix
+
+```
