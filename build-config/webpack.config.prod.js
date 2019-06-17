@@ -124,7 +124,6 @@ module.exports = merge(baseConfig, {
     runtimeChunk: true,
   },
   performance: {
-    maxEntrypointSize: 300000,
     hints: 'warning',
   },
 })

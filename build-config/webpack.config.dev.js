@@ -113,7 +113,6 @@ module.exports = merge(baseConfig, {
   plugins: defaultPlugins,
   devServer,
   performance: {
-    maxEntrypointSize: 300000,
     hints: false,
   },
 })
