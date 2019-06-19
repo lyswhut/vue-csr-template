@@ -1,5 +1,3 @@
-const path = require('path')
-const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
@@ -12,9 +10,6 @@ const defaultPlugins = [
     'process.env': {
       NODE_ENV: '"development"',
     },
-  }),
-  new HTMLPlugin({
-    template: path.join(__dirname, './template.html'),
   }),
   new FriendlyErrorsPlugin(),
   new webpack.HotModuleReplacementPlugin(),
@@ -30,7 +25,7 @@ const devServer = {
   historyApiFallback: {
     index: '/public/index.html',
   },
-  stats: 'minimal',
+  quiet: true,
   clientLogLevel: 'warning',
   hot: true,
 }

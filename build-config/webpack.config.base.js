@@ -1,4 +1,5 @@
 const path = require('path')
+const HTMLPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const vueLoaderConfig = require('./vue-loader.config')
@@ -21,7 +22,12 @@ module.exports = {
     rules: [
       {
         test: /\.(vue|js)$/,
-        loader: 'eslint-loader',
+        use: {
+          loader: 'eslint-loader',
+          options: {
+            formatter: require('eslint-formatter-friendly'),
+          },
+        },
         exclude: /node_modules/,
         enforce: 'pre',
       },
@@ -68,5 +74,8 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new HTMLPlugin({
+      template: path.join(__dirname, './template.html'),
+    }),
   ],
 }

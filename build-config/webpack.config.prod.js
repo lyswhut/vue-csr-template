@@ -1,5 +1,3 @@
-const path = require('path')
-const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -14,9 +12,6 @@ const defaultPlugins = [
     'process.env': {
       NODE_ENV: '"production"',
     },
-  }),
-  new HTMLPlugin({
-    template: path.join(__dirname, './template.html'),
   }),
   new MiniCssExtractPlugin({
     filename: '[name].[contentHash:8].css',
