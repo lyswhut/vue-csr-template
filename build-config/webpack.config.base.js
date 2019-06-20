@@ -21,11 +21,9 @@ module.exports = {
     rules: [
       {
         test: /\.(vue|js)$/,
-        use: {
-          loader: 'eslint-loader',
-          options: {
-            formatter: require('eslint-formatter-friendly'),
-          },
+        loader: 'eslint-loader',
+        options: {
+          formatter: require('eslint-formatter-friendly'),
         },
         exclude: /node_modules/,
         enforce: 'pre',
@@ -54,17 +52,13 @@ module.exports = {
       },
       {
         test: /\.(gif|jpg|jpeg|png|svg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 1024,
-              fallback: 'file-loader',
-              outputPath: 'img/',
-              name: '[name].[ext]?[hash:8]',
-            },
-          },
-        ],
+        loader: 'url-loader',
+        options: {
+          limit: 1024,
+          fallback: 'file-loader',
+          outputPath: 'img/',
+          name: '[name].[ext]?[hash:8]',
+        },
       },
     ],
   },
