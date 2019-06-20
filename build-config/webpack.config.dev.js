@@ -1,20 +1,9 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+
 const baseConfig = require('./webpack.config.base')
-
 const cssLoaderConfig = require('./css-loader.config')
-
-const defaultPlugins = [
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: '"development"',
-    },
-  }),
-  new FriendlyErrorsPlugin(),
-  new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoEmitOnErrorsPlugin(),
-]
 
 const devServer = {
   port: 3000,
@@ -79,6 +68,9 @@ function cssLoaderMerge(beforeLoader) {
 
 module.exports = merge(baseConfig, {
   devtool: '#cheap-module-eval-source-map',
+  output: {
+    filename: '[name].js',
+  },
   module: {
     rules: [
       {
@@ -105,7 +97,16 @@ module.exports = merge(baseConfig, {
       },
     ],
   },
-  plugins: defaultPlugins,
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"',
+      },
+    }),
+    new FriendlyErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ],
   devServer,
   performance: {
     hints: false,

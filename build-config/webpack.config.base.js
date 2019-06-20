@@ -11,7 +11,6 @@ module.exports = {
   target: 'web',
   entry: path.join(__dirname, '../src/main.js'),
   output: {
-    filename: 'bundle.[hash:8].js',
     path: path.join(__dirname, '../public'),
     publicPath,
   },

@@ -7,27 +7,6 @@ const baseConfig = require('./webpack.config.base')
 
 const cssLoaderConfig = require('./css-loader.config')
 
-const defaultPlugins = [
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: '"production"',
-    },
-  }),
-  new MiniCssExtractPlugin({
-    filename: '[name].[contentHash:8].css',
-    // chunkFilename: '[id].[contentHash:8].css'
-  }),
-  // new OptimizeCssAssetsPlugin({
-  //   assetNameRegExp: /\.optimize\.css$/g,
-  //   cssProcessor: require('cssnano'),
-  //   cssProcessorPluginOptions: {
-  //     preset: ['default', { discardComments: { removeAll: true } }]
-  //   },
-  //   canPrint: true
-  // }),
-  new webpack.NamedChunksPlugin(),
-]
-
 function cssLoaderMerge(beforeLoader) {
   const loader = [
     // 这里匹配 `<style module>`
@@ -89,7 +68,26 @@ module.exports = merge(baseConfig, {
       },
     ],
   },
-  plugins: defaultPlugins,
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"',
+      },
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contentHash:8].css',
+      // chunkFilename: '[id].[contentHash:8].css'
+    }),
+    // new OptimizeCssAssetsPlugin({
+    //   assetNameRegExp: /\.optimize\.css$/g,
+    //   cssProcessor: require('cssnano'),
+    //   cssProcessorPluginOptions: {
+    //     preset: ['default', { discardComments: { removeAll: true } }]
+    //   },
+    //   canPrint: true
+    // }),
+    new webpack.NamedChunksPlugin(),
+  ],
   optimization: {
     minimizer: [
       new TerserPlugin({
