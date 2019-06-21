@@ -76,16 +76,8 @@ module.exports = merge(baseConfig, {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contentHash:8].css',
-      // chunkFilename: '[id].[contentHash:8].css'
+      chunkFilename: '[id].[contentHash:8].css',
     }),
-    // new OptimizeCssAssetsPlugin({
-    //   assetNameRegExp: /\.optimize\.css$/g,
-    //   cssProcessor: require('cssnano'),
-    //   cssProcessorPluginOptions: {
-    //     preset: ['default', { discardComments: { removeAll: true } }]
-    //   },
-    //   canPrint: true
-    // }),
     new webpack.NamedChunksPlugin(),
   ],
   optimization: {
