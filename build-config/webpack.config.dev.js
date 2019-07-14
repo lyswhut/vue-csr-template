@@ -103,7 +103,11 @@ module.exports = merge(baseConfig, {
         NODE_ENV: '"development"',
       },
     }),
-    new FriendlyErrorsPlugin(),
+    new FriendlyErrorsPlugin({
+      compilationSuccessInfo: {
+        messages: ['You application is running here http://localhost:' + devServer.port],
+      },
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
