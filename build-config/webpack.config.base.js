@@ -4,7 +4,9 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const vueLoaderConfig = require('./vue-loader.config')
 
-const publicPath = '/public/'
+const isDev = process.env.NODE_ENV === 'development'
+
+const publicPath = isDev ? '/public/' : '/'
 
 module.exports = {
   mode: process.env.NODE_ENV,
