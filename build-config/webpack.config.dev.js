@@ -19,7 +19,7 @@ const devServer = {
 }
 
 module.exports = merge(baseConfig, {
-  devtool: '#cheap-module-eval-source-map',
+  devtool: 'cheap-source-map',
   output: {
     filename: '[name].js',
   },
@@ -35,8 +35,10 @@ module.exports = merge(baseConfig, {
       },
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
   ],
+  optimization: {
+    noEmitOnErrors: true,
+  },
   devServer,
   performance: {
     hints: false,

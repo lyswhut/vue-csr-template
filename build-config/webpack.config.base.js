@@ -2,6 +2,7 @@ const path = require('path')
 const HTMLPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CleanCSSPlugin = require('less-plugin-clean-css')
 
 const vueLoaderConfig = require('./vue-loader.config')
 
@@ -18,12 +19,7 @@ function cssLoaderMerge(beforeLoader) {
     {
       resourceQuery: /module/,
       use: [
-        {
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            hmr: isDev,
-          },
-        },
+        MiniCssExtractPlugin.loader,
         {
           loader: 'css-loader',
           options: cssLoaderConfig,
@@ -34,12 +30,7 @@ function cssLoaderMerge(beforeLoader) {
     // 这里匹配普通的 `<style>` 或 `<style scoped>`
     {
       use: [
-        {
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            hmr: isDev,
-          },
-        },
+        MiniCssExtractPlugin.loader,
         'css-loader',
         'postcss-loader',
       ],
@@ -94,6 +85,11 @@ module.exports = {
           loader: 'less-loader',
           options: {
             sourceMap: true,
+            lessOptions: {
+              plugins: [
+                new CleanCSSPlugin({ advanced: true }),
+              ],
+            },
           },
         }),
       },
