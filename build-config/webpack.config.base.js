@@ -8,18 +8,24 @@ const vueLoaderConfig = require('./vue-loader.config')
 
 const isDev = process.env.NODE_ENV === 'development'
 
-const publicPath = isDev ? '/public/' : '/'
+const publicPath = isDev ? '/public/' : 'auto'
 
 
 const cssLoaderConfig = require('./css-loader.config')
 
-function cssLoaderMerge(beforeLoader) {
+// merge css-loader
+const mergeCSSLoader = beforeLoader => {
   const loader = [
     // 这里匹配 `<style module>`
     {
       resourceQuery: /module/,
       use: [
-        MiniCssExtractPlugin.loader,
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            esModule: false,
+          },
+        },
         {
           loader: 'css-loader',
           options: cssLoaderConfig,
@@ -30,7 +36,12 @@ function cssLoaderMerge(beforeLoader) {
     // 这里匹配普通的 `<style>` 或 `<style scoped>`
     {
       use: [
-        MiniCssExtractPlugin.loader,
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            esModule: false,
+          },
+        },
         'css-loader',
         'postcss-loader',
       ],
@@ -77,11 +88,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        oneOf: cssLoaderMerge(),
+        oneOf: mergeCSSLoader(),
       },
       {
         test: /\.less$/,
-        oneOf: cssLoaderMerge({
+        oneOf: mergeCSSLoader({
           loader: 'less-loader',
           options: {
             sourceMap: true,
@@ -95,7 +106,7 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        oneOf: cssLoaderMerge({
+        oneOf: mergeCSSLoader({
           loader: 'stylus-loader',
           options: {
             sourceMap: true,
@@ -107,23 +118,39 @@ module.exports = {
         loader: 'pug-plain-loader',
       },
       {
-        test: /\.(eot|ttf|woff|woff2)(\?\S*)?$/,
-        loader: 'file-loader',
-        options: {
-          publicPath,
-          name: '[name].[ext]?[hash:8]',
-          esModule: false,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10000,
+          },
+        },
+        generator: {
+          filename: 'imgs/[name]-[contenthash:8][ext]',
         },
       },
       {
-        test: /\.(gif|jpg|jpeg|png|svg)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 1024,
-          fallback: 'file-loader',
-          outputPath: 'img/',
-          name: '[name].[ext]?[hash:8]',
-          esModule: false,
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10000,
+          },
+        },
+        generator: {
+          filename: 'media/[name]-[contenthash:8][ext]',
+        },
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10000,
+          },
+        },
+        generator: {
+          filename: 'fonts/[name]-[contenthash:8][ext]',
         },
       },
     ],

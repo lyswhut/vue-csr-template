@@ -6,15 +6,17 @@ const baseConfig = require('./webpack.config.base')
 
 const devServer = {
   port: 3000,
-  host: '0.0.0.0',
-  overlay: {
-    errors: true,
+  // host: '0.0.0.0',
+  client: {
+    overlay: {
+      errors: true,
+    },
+    logging: 'warn',
+    progress: true,
   },
   historyApiFallback: {
     index: '/public/index.html',
   },
-  quiet: true,
-  clientLogLevel: 'warning',
   hot: true,
 }
 
@@ -34,7 +36,6 @@ module.exports = merge(baseConfig, {
         messages: ['You application is running here http://localhost:' + devServer.port],
       },
     }),
-    new webpack.HotModuleReplacementPlugin(),
   ],
   optimization: {
     noEmitOnErrors: true,

@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const TerserPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const baseConfig = require('./webpack.config.base')
 
 
@@ -20,7 +20,7 @@ module.exports = merge(baseConfig, {
   optimization: {
     minimizer: [
       new TerserPlugin(),
-      new OptimizeCSSAssetsPlugin({}),
+      new CssMinimizerPlugin(),
     ],
     splitChunks: {
       cacheGroups: {
