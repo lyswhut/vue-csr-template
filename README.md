@@ -4,11 +4,11 @@ A vue-CSR based scaffolding.
 
 Scaffolding mainly integrates the following packages:
 
-* vue 2.x
+* vue 3.x
 * vue-router
 * vuex
 * axios
-* webpack 4.x
+* webpack 5.x
 * babel 7.x
 * autoprefixer
 * eslint
