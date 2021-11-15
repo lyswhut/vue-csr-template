@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
+// import { createPersistedState, createSharedMutations } from 'vuex-electron'
 
 import defaultState from './state'
 import mutations from './mutations'
@@ -7,17 +7,16 @@ import modules from './modules'
 import getters from './getters'
 import actions from './actions'
 
-Vue.use(Vuex)
-
 const isDev = process.env.NODE_ENV === 'development'
 
-const store = new Vuex.Store({
+const store = createStore({
   strict: isDev,
   state: defaultState,
   modules,
   mutations,
   getters,
   actions,
+  // plugins: [createPersistedState(), createSharedMutations()],
 })
 
 if (module.hot) {

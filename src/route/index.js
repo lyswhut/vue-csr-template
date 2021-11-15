@@ -1,26 +1,23 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Meta from 'vue-meta'
+// import Vue from 'vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import paths from './paths'
 
 
-function route(path, view, name, meta) {
+function route(path, view, name, meta, props) {
   return {
     name: name || view,
     path,
     meta,
+    props,
     component: (resovle) => import(`../views/${view}.vue`).then(resovle),
   }
 }
 
-Vue.use(Meta)
-Vue.use(Router)
-
-const router = new Router({
-  mode: 'history',
-  routes: paths.map(path => route(path.path, path.view, path.name, path.meta)).concat([
-    { path: '*', redirect: '/home' },
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: paths.map(path => route(path.path, path.view, path.name, path.meta, path.props)).concat([
+    { path: '/:pathMatch(.*)*', redirect: { path: '/home' } },
   ]),
   linkActiveClass: 'active-link',
   linkExactActiveClass: 'exact-active-link',
@@ -40,8 +37,8 @@ const router = new Router({
           if (to.matched.some(m => m.meta.scrollToTop)) {
             // cords will be used if no selector is provided,
             // or if the selector didn't match any element.
-            position.x = 0
-            position.y = 0
+            position.left = 0
+            position.top = 0
           }
           // if the returned position is falsy or an empty object,
           // will retain current scroll position.

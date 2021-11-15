@@ -1,11 +1,11 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import { sync } from 'vuex-router-sync'
 
 // Components
-import './components'
+import mountComponents from './components'
 
 // Plugins
-import './plugins'
+import initPlugins from './plugins'
 
 import App from './App'
 import router from './route'
@@ -13,11 +13,11 @@ import store from './store'
 
 sync(store, router)
 
-new Vue({
-  router,
-  store,
-  el: '#root',
-  render: h => h(App),
-})
+const app = createApp(App)
 
-
+app.use(router)
+  .use(store)
+  // .use(i18n)
+initPlugins(app)
+mountComponents(app)
+app.mount('#root')
