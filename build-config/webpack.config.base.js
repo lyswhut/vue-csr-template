@@ -3,6 +3,7 @@ const HTMLPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CleanCSSPlugin = require('less-plugin-clean-css')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 const vueLoaderConfig = require('./vue-loader.config')
 
@@ -70,15 +71,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.(vue|js)$/,
-        loader: 'eslint-loader',
-        options: {
-          formatter: require('eslint-formatter-friendly'),
-        },
-        exclude: /node_modules/,
-        enforce: 'pre',
-      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -163,6 +155,10 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new ESLintPlugin({
+      extensions: ['js', 'vue'],
+      formatter: require('eslint-formatter-friendly'),
+    }),
     new HTMLPlugin({
       template: path.join(__dirname, './template.html'),
     }),
